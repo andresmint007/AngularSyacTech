@@ -5,6 +5,48 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/pedidos": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PedidoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPedidoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/parametros/clientes": {
       "get": {
         "tags": [
@@ -67,28 +109,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/pedidos": {
-      "post": {
-        "tags": [
-          "Pedidos"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CrearPedidoDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }
@@ -165,6 +185,36 @@
         },
         "additionalProperties": false
       },
+      "DetallePedidoDtoRep": {
+        "type": "object",
+        "properties": {
+          "dpP_IdDetalle": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prO_IdProducto": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productoNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "dpP_Cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "valorUnitario": {
+            "type": "number",
+            "format": "double"
+          },
+          "valorTotalDetalle": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "EstadoDto": {
         "type": "object",
         "properties": {
@@ -178,6 +228,59 @@
           },
           "activo": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoDto": {
+        "type": "object",
+        "properties": {
+          "peD_IdPedido": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clI_IdCliente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clienteNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "peD_FechaRegistro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "esT_IDEstado": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estadoNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "peD_DireccionEntrega": {
+            "type": "string",
+            "nullable": true
+          },
+          "prI_IdPrioridad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prioridadNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "peD_ValorParcialoTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "detallePedidos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetallePedidoDtoRep"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
