@@ -1,0 +1,24 @@
+<h2>Listado de Pedidos</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID Pedido</th>
+      <th>Cliente</th>
+      <th>Dirección de Entrega</th>
+      <th>Fecha de Registro</th>
+      <th>Estado</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pedido of pedidos">
+      <td>{{ pedido.peD_IdPedido }}</td>
+      <td>{{ pedido.clienteNombre }}</td>
+      <td>{{ pedido.peD_DireccionEntrega }}</td>
+      <td>{{ pedido.peD_FechaRegistro | date:'short' }}</td>
+      <td>{{ pedido.estadoNombre }}</td>
+      <td>{{ pedido.peD_ValorParcialoTotal | currency }}</td>
+    </tr>
+  </tbody>
+</table>
